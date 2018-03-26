@@ -11,12 +11,6 @@ class Match {
     this.next = CIRC
     this.winner = NONE
   }
-
-  move(position, player) {
-    // TODO validate next, or don't receive player at all
-
-    this.board[position] = player
-  }
 }
 
 export default Match;

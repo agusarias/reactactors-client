@@ -1,12 +1,8 @@
-const SERVICE_URL = "http://localhost:3000/fakeapi/"
+const SERVICE_URL = "http://localhost:4000/fakeapi/"
 import fetch from "isomorphic-unfetch"
 import axios from "axios";
 
 class GameAPI {
-
-  static createMatch() {
-    return axios.post(SERVICE_URL + "match")
-  }
 
   static getMatch = async (code) => {
     const response = await fetch(SERVICE_URL + "match/" + code)
@@ -15,9 +11,21 @@ class GameAPI {
     return match
   }
 
+  static createMatch() {
+    return new Promise((resolve, reject) => {
+      axios.post(SERVICE_URL + "match").then(response => {
+        resolve(response.data)
+      })
+    })
+  }
+
   static makeMove(code, player, position) {
-    return axios.put(SERVICE_URL + "match/" + code, {
-      player, position
+    return new Promise((resolve, reject) => {
+      axios.put(SERVICE_URL + "match/" + code, {
+        player, position
+      }).then(response => {
+        resolve(response.data)
+      })
     })
   }
 }
