@@ -11,7 +11,7 @@ class MatchPage extends Component {
 
     this.state = {
       match: Match.fromResponse(props.match), // Couldn't receive model :S
-      player: Player.none()
+      player: Player.none
     };
   }
 
@@ -24,17 +24,17 @@ class MatchPage extends Component {
   }
 
   handlePick = code => {
-    this.setState({ player: new Player(code) });
+    this.setState({ player: Player.get(code) });
   };
 
   handleMove = position => {
     GameAPI.makeMove(
       this.state.match.code,
-      this.state.match.next,
+      this.state.player.code,
       position
     ).then(updatedMatch => {
       this.setState({
-        match: updatedMatch
+        match: Match.fromResponse(updatedMatch)
       });
     });
   };

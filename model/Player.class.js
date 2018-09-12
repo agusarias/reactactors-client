@@ -3,27 +3,38 @@ export const NONE = 0,
   CRSS = 2;
 
 class Player {
-  constructor(code) {
+  constructor(code, name, icon) {
     this.code = code;
+    this.name = name;
+    this.icon = icon;
   }
 
-  static circ = () => new Player(CIRC);
-  static crss = () => new Player(CRSS);
-  static none = () => new Player(NONE);
+  static get circ() {
+    return new Player(CIRC, "O", "circle");
+  }
+  static get crss() {
+    return new Player(CRSS, "X", "x");
+  }
+  static get none() {
+    return new Player(NONE, "-", "");
+  }
 
   is = code => code == this.code;
 
-  name = () => {
-    let name = "-";
-    switch (this.code) {
+  static get = code => {
+    let instance;
+    switch (code) {
       case CIRC:
-        name = "O";
+        instance = Player.circ;
         break;
       case CRSS:
-        name = "X";
+        instance = Player.crss;
+        break;
+      default:
+        instance = Player.none;
         break;
     }
-    return name;
+    return instance;
   };
 }
 

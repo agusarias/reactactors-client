@@ -1,24 +1,15 @@
 import React from "react";
 import { Icon, Button } from "semantic-ui-react";
-import Match, { CIRC, CRSS, NONE } from "../model/Player.class";
+import { NONE } from "../model/Player.class";
 
 export default class Box extends React.Component {
   render() {
-    let text = "-";
-
-    switch (this.props.value) {
-      case CIRC:
-        text = <Icon name="circle" />;
-        break;
-
-      case CRSS:
-        text = <Icon name="x" />;
-        break;
-    }
+    let text = <Icon name={this.props.player.icon} />;
+    let disabled = !this.props.player.is(NONE);
 
     return (
       <div>
-        <Button fluid onClick={this.props.onClick}>
+        <Button fluid onClick={this.props.onClick} disabled={disabled}>
           {text}
         </Button>
       </div>

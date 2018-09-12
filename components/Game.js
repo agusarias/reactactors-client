@@ -8,17 +8,20 @@ export default class Game extends React.Component {
     var content;
     var title;
 
+    var match = this.props.match;
+    var { next, winner, code } = match;
+
     if (this.props.player.is(NONE)) {
-      title = "Welcome to the game " + this.props.match.code;
+      title = "Welcome to the game " + code;
       content = <PickPlayer onPick={this.props.onPick} />;
     } else {
       if (this.props.match.hasWinner()) {
-        title = "The winner is " + this.props.match.winner;
+        title = "The winner is " + winner.name;
       } else {
-        if (this.props.match.next === this.props.player) {
-          title = "Your turn " + this.props.match.next;
+        if (this.props.player.is(next.code)) {
+          title = "Your turn " + next.name;
         } else {
-          title = "Waiting turn " + this.props.match.next;
+          title = "Waiting turn " + next.name;
         }
       }
       content = (

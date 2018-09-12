@@ -11,12 +11,12 @@ export default class PickPlayer extends React.Component {
         <Grid.Row columns={2}>
           <Grid.Column>
             <Button fluid onClick={() => this.props.onPick(CRSS)}>
-              {Player.crss().name()}
+              {Player.crss.name}
             </Button>
           </Grid.Column>
           <Grid.Column>
             <Button fluid onClick={() => this.props.onPick(CIRC)}>
-              {Player.circ().name()}
+              {Player.circ.name}
             </Button>
           </Grid.Column>
         </Grid.Row>

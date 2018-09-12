@@ -1,27 +1,27 @@
-import React, { Component } from "react"
-import Router from "next/router"
+import React, { Component } from "react";
+import Router from "next/router";
 import { Button, Grid, Input, Divider } from "semantic-ui-react";
-import GameAPI from "../model/GameAPI"
+import GameAPI from "../model/GameAPI";
 
 class Index extends Component {
   constructor(props) {
     super(props);
     this.state = {
       code: ""
-    }
+    };
   }
 
-  handleChange = (event, { name, value }) => this.setState({ [name]: value })
+  handleChange = (event, { name, value }) => this.setState({ [name]: value });
 
   handleNewGame = () => {
     GameAPI.createMatch().then(match => {
-      Router.push('/match/' + match.code)
-    })
-  }
+      Router.push("/match/" + match.code);
+    });
+  };
 
   handleJoinGame = () => {
-    Router.push('/match/' + this.state.code)
-  }
+    Router.push("/match/" + this.state.code);
+  };
 
   render() {
     return (
@@ -35,16 +35,25 @@ class Index extends Component {
         </Grid.Row>
         <Grid.Row>
           <Grid.Column>
-            <Input action={{
-              secondary: true, content: "JOIN", size: "huge",
-              onClick: this.handleJoinGame
-            }} name="code" value={this.state.code} onChange={this.handleChange}
-              placeholder="CODE" fluid size="huge" />
+            <Input
+              action={{
+                secondary: true,
+                content: "JOIN",
+                size: "huge",
+                onClick: this.handleJoinGame
+              }}
+              name="code"
+              value={this.state.code}
+              onChange={this.handleChange}
+              placeholder="CODE"
+              fluid
+              size="huge"
+            />
           </Grid.Column>
         </Grid.Row>
         <Divider hidden />
       </Grid>
-    )
+    );
   }
 }
 
