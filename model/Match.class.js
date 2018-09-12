@@ -1,15 +1,23 @@
-export const NONE = 0,
-  CIRC = 1,
-  CRSS = 2,
-  POSITIONS = 9;
+import { NONE, CIRC } from "./Player.class";
+
+export const POSITIONS = 9;
 
 class Match {
   constructor(code, board) {
-    this.code = code
-    this.board = board === undefined ?
-      Array(POSITIONS).fill(NONE) : board
-    this.next = CIRC
-    this.winner = NONE
+    this.code = code;
+    this.board = board === undefined ? Array(POSITIONS).fill(NONE) : board;
+    this.next = CIRC;
+    this.winner = NONE;
+  }
+
+  hasWinner = () => this.winner !== NONE;
+
+  static fromResponse(response) {
+    let match = new Match(response.code, response.board);
+    match.next = response.next;
+    match.winner = response.winner;
+
+    return match;
   }
 }
 

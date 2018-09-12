@@ -1,14 +1,18 @@
-import React, { Component } from "react"
+import React, { Component } from "react";
 import { Grid, Header } from "semantic-ui-react";
-import GameAPI from "../model/GameAPI"
+import GameAPI from "../model/GameAPI";
 import Game from "../components/Game";
+import Player from "../model/Player.class";
+import Match from "../model/Match.class";
 
-class Match extends Component {
+class MatchPage extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      match: props.match
-    }
+      match: Match.fromResponse(props.match), // Couldn't receive model :S
+      player: Player.none()
+    };
   }
 
   static async getInitialProps(context) {
@@ -16,32 +20,41 @@ class Match extends Component {
 
     return {
       match: await GameAPI.getMatch(code)
-    }
+    };
   }
 
-  handleMove = (position) => {
-    console.log(position)
-    GameAPI.makeMove(this.state.match.code, this.state.match.next, position)
-      .then(updatedMatch => {
-        this.setState({
-          match: updatedMatch
-        })
-      })
+  handlePick = code => {
+    this.setState({ player: new Player(code) });
+  };
 
-  }
+  handleMove = position => {
+    GameAPI.makeMove(
+      this.state.match.code,
+      this.state.match.next,
+      position
+    ).then(updatedMatch => {
+      this.setState({
+        match: updatedMatch
+      });
+    });
+  };
 
   render() {
     return (
       <Grid columns={1}>
         <Grid.Row>
           <Grid.Column>
-            <Header>{this.state.match.code}</Header>
-            <Game match={this.state.match} onMove={this.handleMove} />
+            <Game
+              match={this.state.match}
+              player={this.state.player}
+              onPick={this.handlePick}
+              onMove={this.handleMove}
+            />
           </Grid.Column>
         </Grid.Row>
       </Grid>
-    )
+    );
   }
 }
 
-export default Match;
+export default MatchPage;
