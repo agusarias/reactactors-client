@@ -31,8 +31,8 @@ export default class MyDocument extends Document {
           <Container text>
             <Grid centered padded>
               <Grid.Column>
-                {/* <Image src="/static/logo.png" size="large" centered></Image> */}
-                {/* <Divider hidden /> */}
+                <Image src="/static/logo.png" size="large" centered />
+                <Divider hidden />
                 <Main />
               </Grid.Column>
             </Grid>

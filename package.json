@@ -1,7 +1,7 @@
 {
   "name": "reactactors-client",
   "version": "1.0.0",
-  "description": "ReactTacTors react client",
+  "description": "ReactTacTors - React client",
   "main": "index.js",
   "dependencies": {
     "axios": "^0.18.0",

@@ -1,4 +1,4 @@
-const SERVICE_URL = "http://localhost:4000/fakeapi/";
+const SERVICE_URL = "http://localhost:8080/";
 import fetch from "isomorphic-unfetch";
 import axios from "axios";
 
@@ -22,10 +22,10 @@ class GameAPI {
     return new Promise((resolve, reject) => {
       axios
         .put(SERVICE_URL + "match/" + code, {
-          player,
-          position
+          position: position
         })
         .then(response => {
+          console.log(response.data);
           resolve(response.data);
         });
     });
