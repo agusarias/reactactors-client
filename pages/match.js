@@ -63,7 +63,17 @@ class MatchPage extends Component {
   }
 
   componentDidMount() {
+    this.createSocket();
     this.setTimer();
+  }
+
+  createSocket() {
+    this.ws = GameAPI.createSocket(this.state.match.code);
+    this.ws.onmessage = event => {
+      this.setState({
+        match: Match.fromResponse(JSON.parse(event.data))
+      });
+    };
   }
 
   setTimer() {
@@ -71,15 +81,11 @@ class MatchPage extends Component {
   }
 
   handleRefresh = () => {
-    if (this.state.match.hasWinner) {
+    if (this.state.match.hasWinner()) {
       this.stopTimer();
       return;
     }
-    GameAPI.getMatch(this.state.match.code).then(updatedMatch => {
-      this.setState({
-        match: Match.fromResponse(updatedMatch)
-      });
-    });
+    this.ws.send("state");
   };
 
   componentWillUnmount() {

@@ -1,4 +1,5 @@
 const SERVICE_URL = "http://localhost:8080/";
+const WS_URL = "ws://localhost:8080/";
 import fetch from "isomorphic-unfetch";
 import axios from "axios";
 
@@ -18,7 +19,7 @@ class GameAPI {
     });
   }
 
-  static makeMove(code, player, position) {
+  static makeMove(code, position) {
     return new Promise((resolve, reject) => {
       axios
         .put(SERVICE_URL + "match/" + code, {
@@ -29,6 +30,10 @@ class GameAPI {
           resolve(response.data);
         });
     });
+  }
+
+  static createSocket(code) {
+    return new WebSocket(WS_URL + "match/" + code + "/stream");
   }
 }
 
